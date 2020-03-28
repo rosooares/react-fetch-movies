@@ -1,0 +1,11 @@
+.search-form {
+    padding: 24px;
+}
+
+.search-form input {
+    width: 70%;
+}
+
+.itemsStates{
+    list-style-type: none;
+}

@@ -1,0 +1,12 @@
+.navbar {
+    padding: 15px;
+    background-color: #b20000;
+    color: #fff;
+    margin-bottom: 30px;
+    text-align: left;
+    font-weight: bolder;
+}
+
+.logo {
+    margin: 0;
+}
