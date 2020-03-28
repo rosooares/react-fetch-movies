@@ -1,6 +1,6 @@
 # React fetch movies
 
-ToDo list criado com [Create React App](https://github.com/facebookincubator/create-react-app).
+React fetch movies criado com [Create React App](https://github.com/facebookincubator/create-react-app).
 
 ### `npm start`
 
@@ -11,4 +11,4 @@ The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
 ##### `material-ui` 
-To Do list utilizando Material-UI
+React fetch movies utilizando Material-UI
