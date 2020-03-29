@@ -13,7 +13,7 @@ export const useMoviesApi = (initialUrl, initialMovies) => {
             Accept: 'PLAU'
           }
         });
-        setMovies(result.data);
+        setMovies(result.data.items);
       } catch (error) {
         console.log('error', error)
       }

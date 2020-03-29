@@ -3,7 +3,12 @@
     display: flex;
 }
 
-.autoComplete {
+.button-search {
+    background: #09f !important;
+    color: #fff !important;
+}
+
+.auto-complete {
     width: 30%;
     margin-right: 24px;
 }

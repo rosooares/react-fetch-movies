@@ -7,7 +7,7 @@ class Header extends Component {
   render() {
     return  (
       <nav className="navbar">
-        <h3 className="logo">Cinema</h3>
+        <h3 className="logo">CINEMA</h3>
       </nav>
     );
   }

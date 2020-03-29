@@ -2,6 +2,9 @@
 
 React fetch movies criado com [Create React App](https://github.com/facebookincubator/create-react-app).
 
+### `Install dependencies using npm`
+npm install
+
 ### `npm start`
 
 Runs the app in the development mode.<br />

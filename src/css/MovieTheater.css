@@ -1,0 +1,31 @@
+.root {
+    flex-grow: 1;
+    padding: 24px;
+}
+
+.box-title-movie{
+    background: #80808014;
+    display: flex;
+    text-align: left;
+    padding: 24px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.box-movie{
+    display: flex;
+    text-align: left;
+    padding: 12px 0px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.title-box-movie{
+    color: #09f;
+    font-weight: bold;
+}
+
+.img-movies{
+    width: 60px;
+    height: 60px;
+}
