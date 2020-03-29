@@ -7,6 +7,7 @@ function App() {
   return (
     <div className="App">
       <Header />
+      <h1> Encontre o cinema pertinho da sua casa!</h1>
       <Search />
     </div>
   );

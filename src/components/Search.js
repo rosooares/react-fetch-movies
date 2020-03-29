@@ -1,30 +1,67 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import Button from '@material-ui/core/Button';
+import { useMoviesApi } from '../Service';
 import '../css/Search.css';
 
 function Search() {
+  const [data, setData] = useState([]);
+  const [query, setQuery] = useState();
+  const [{ movies }, doFetch] = useMoviesApi('https://api-content.ingresso.com/v0/theaters/city/1/partnership/1', { items: []});
 
-    const [data, setData] = useState({ states: [] });
-    useEffect(async () => {
-      const result = await axios(
-        'https://api-content.ingresso.com/v0/states/',
-      );
-      setData(result.data);
-    }, []);
 
-    const state = data && data.length > 0 && data.map(state => state.name);
+    useEffect(() => {
+      async function fetchData() {
+        const result = await axios(
+          'https://api-content.ingresso.com/v0/states/',
+        );
+        setData(result.data);
+      }
+      fetchData();
+    }, []); 
+
+    const arrayCities = data && data.length && data
+      .map(state => { return state.cities
+      .map(cities => { return {text : cities.name + ' - ' + cities.uf, value: cities.id} }) 
+      }).reduce((pre, cur) => {
+            return pre.concat(cur);
+         });
 
     return (
-      <form className="search-form" >
-        <Autocomplete
-        id="combo-box-demo"
-        options={state}
-        style={{ width: 300 }}
-        renderInput={(params) => <TextField {...params} label="Selecione seu estado" variant="outlined" />}
+      <Fragment>
+      <form className="search-form" 
+        onSubmit={event => {
+          doFetch(
+            `https://api-content.ingresso.com/v0/theaters/city/${query.value}/partnership/1`,
+          );
+          event.preventDefault();
+        }}
+      >
+      
+      <Autocomplete
+        id="autocomplete-cities"
+        className="autoComplete"
+        onChange={(event, value) => setQuery(value)}
+        options={arrayCities}
+        getOptionLabel={(option) => option.text}
+        renderInput={(params) => <TextField {...params} label="Selecione sua cidade" variant="outlined" />}
       />
+      <Button variant="contained" color="primary" type="submit">
+        Pesquisar
+      </Button>
+
       </form>
+
+      <ul>
+         
+          {
+            movies.items.map(item => <li> { item.name } </li>)
+          }
+        
+      </ul>
+      </Fragment>
     );
   }
 

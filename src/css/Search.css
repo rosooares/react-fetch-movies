@@ -1,11 +1,9 @@
 .search-form {
     padding: 24px;
+    display: flex;
 }
 
-.search-form input {
-    width: 70%;
-}
-
-.itemsStates{
-    list-style-type: none;
+.autoComplete {
+    width: 30%;
+    margin-right: 24px;
 }
