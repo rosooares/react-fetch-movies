@@ -20,7 +20,7 @@ function MovieTheater(props) {
         <Grid item key={i.id} xs={4} className="box-movie"> 
           <Grid item xs={2}>
            {i.images && i.images.length > 0 && i.images.map(imag => 
-            <img className="img-movies" alt="Remy Sharp" src={imag.url} />
+            <img key={i.id} className="img-movies" alt="Remy Sharp" src={imag.url} />
            )}
           </Grid>
           <Grid item xs={10}>

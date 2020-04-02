@@ -1,7 +1,16 @@
-.App {
+.title {
   text-align: center;
 }
 
-.header{
+.logo {
+  padding: 15px;
+  background-color: #b20000;
+  color: #fff;
+  text-align: left;
+  font-weight: bolder;
+  margin: 0;
+}
+
+.search-cities{
   padding: 24px 0px;
 }

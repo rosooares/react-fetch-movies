@@ -1,53 +1,51 @@
 import React, { useEffect, useState } from 'react';
 import Search from './components/Search';
-import Header from './components/Header';
-import MovieTheater from './components/MovieTheater';
-import Typography from '@material-ui/core/Typography';
-import axios from 'axios';
-import { useMoviesApi } from './Service';
+// import MovieTheater from './components/MovieTheater';
+// import { useMoviesApi } from './Service';
+import { getStates } from './services/getStates';
 import './App.css';
 
-function App() {
-
-  const [data, setData] = useState([]);
+export default function App() {
+  const [brazilianStates, setBrazilianStates] = useState([]);
   const [query, setQuery] = useState();
-  const [{ movies }, doFetch] = useMoviesApi('https://api-content.ingresso.com/v0/theaters/city/1/partnership/1', { items: []});
+  // const [{ movies }, setResults] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      setBrazilianStates(await getStates());
+    }
+    fetchData();
+  }, []); 
+
+  const brazilianCities = brazilianStates.length > 0 && brazilianStates
+    .map(state => { return state.cities
+    .map(cities => { return {text : cities.name + ' - ' + cities.uf, value: cities.id} })})
+    .reduce((pre, cur) => { return pre.concat(cur)})
+    .sort((a,b) => (a.text > b.text) ? 1 : ((b.text > a.text) ? -1 : 0));
 
 
-    useEffect(() => {
-      async function fetchData() {
-        const result = await axios(
-          'https://api-content.ingresso.com/v0/states/',
-        );
-        setData(result.data);
-      }
-      fetchData();
-    }, []); 
-
-    const arrayCities = data && data.length && data
-      .map(state => { return state.cities
-      .map(cities => { return {text : cities.name + ' - ' + cities.uf, value: cities.id} }) 
-      }).reduce((pre, cur) => {
-            return pre.concat(cur);
-         }).sort((a,b) => (a.text > b.text) ? 1 : ((b.text > a.text) ? -1 : 0));
+    // async function searchMovies(event) {
+    //   event.persist()
+    //   event.preventDefault();
+    //   setResults(await useMoviesApi(query)); 
+    // }
 
   return (
-    <div className="App">
-      <Header />
-      <div className="header">
-        <Typography variant="h4"> Encontre o cinema pertinho da sua casa!</Typography>
+    <>
+      <h3 className="logo">CINEMA</h3>
+      <section className="search-cities">
+        <h1 className="title"> Encontre o cinema pertinho da sua casa!</h1>
         <Search 
-          arrayCities={arrayCities}
+          brazilianCities={brazilianCities}
           query={query}
           setQuery={setQuery}
-          doFetch={doFetch}
+          // setResults={setResults}
+          // searchMovies={searchMovies}
         />
-      </div>
-      <MovieTheater 
+      </section>
+      {/* <MovieTheater 
         movies={movies}
-      />
-    </div>
+      /> */}
+    </>
   );
 }
-
-export default App;
