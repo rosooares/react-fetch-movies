@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Search from './components/Search';
 // import MovieTheater from './components/MovieTheater';
 // import { useMoviesApi } from './Service';
-import { getStates } from './services/getStates';
+import { getCities } from './services/getCities';
 import './App.css';
 
 export default function App() {
@@ -12,17 +12,14 @@ export default function App() {
 
   useEffect(() => {
     async function fetchData() {
-      setBrazilianStates(await getStates());
+      setBrazilianStates(await getCities());
     }
     fetchData();
   }, []); 
 
-  const brazilianCities = brazilianStates.length > 0 && brazilianStates
-    .map(state => { return state.cities
-    .map(cities => { return {text : cities.name + ' - ' + cities.uf, value: cities.id} })})
-    .reduce((pre, cur) => { return pre.concat(cur)})
-    .sort((a,b) => (a.text > b.text) ? 1 : ((b.text > a.text) ? -1 : 0));
-
+  const brazilianCities = brazilianStates
+    .map(city => ({ name: `${city.name} - ${city.uf}`, id: city.id}))
+    .sort((a, b) => a.name > b.name ? 1 : -1);
 
     // async function searchMovies(event) {
     //   event.persist()
