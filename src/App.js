@@ -6,26 +6,26 @@ import { getCities } from './services/getCities';
 import './App.css';
 
 export default function App() {
-  const [brazilianStates, setBrazilianStates] = useState([]);
+  const [cities, setCities] = useState([]);
   const [query, setQuery] = useState();
   // const [{ movies }, setResults] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
-      setBrazilianStates(await getCities());
+      setCities(await getCities());
     }
     fetchData();
   }, []); 
-
-  const brazilianCities = brazilianStates
-    .map(city => ({ name: `${city.name} - ${city.uf}`, id: city.id}))
-    .sort((a, b) => a.name > b.name ? 1 : -1);
-
     // async function searchMovies(event) {
     //   event.persist()
     //   event.preventDefault();
     //   setResults(await useMoviesApi(query)); 
     // }
+
+
+  const alphabeticalCities = cities
+  .map(city => ({ name: `${city.name} - ${city.uf}`, id: city.id}))
+  .sort((a, b) => a.name > b.name ? 1 : -1);
 
   return (
     <>
@@ -33,7 +33,7 @@ export default function App() {
       <section className="search-cities">
         <h1 className="title"> Encontre o cinema pertinho da sua casa!</h1>
         <Search 
-          brazilianCities={brazilianCities}
+          cities={alphabeticalCities}
           query={query}
           setQuery={setQuery}
           // setResults={setResults}
