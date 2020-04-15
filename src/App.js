@@ -1,48 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import Search from './components/Search';
-// import MovieTheater from './components/MovieTheater';
-// import { useMoviesApi } from './Service';
+import Cinema from './components/Cinema';
 import { getCities } from './services/getCities';
 import './App.css';
 
 export default function App() {
   const [cities, setCities] = useState([]);
-  const [query, setQuery] = useState();
-  // const [{ movies }, setResults] = useState([]);
+  const [cinemas, setCinemas] = useState({ cityName: '', cinema: [] });
 
   useEffect(() => {
     async function fetchData() {
       setCities(await getCities());
     }
     fetchData();
-  }, []); 
-    // async function searchMovies(event) {
-    //   event.persist()
-    //   event.preventDefault();
-    //   setResults(await useMoviesApi(query)); 
-    // }
-
+  }, []);
 
   const alphabeticalCities = cities
-  .map(city => ({ name: `${city.name} - ${city.uf}`, id: city.id}))
-  .sort((a, b) => a.name > b.name ? 1 : -1);
+    .map(city => ({ name: `${city.name} - ${city.uf}`, id: city.id }))
+    .sort((a, b) => a.name > b.name ? 1 : -1);
 
   return (
     <>
       <h3 className="logo">CINEMA</h3>
       <section className="search-cities">
         <h1 className="title"> Encontre o cinema pertinho da sua casa!</h1>
-        <Search 
+        <Search
           cities={alphabeticalCities}
-          query={query}
-          setQuery={setQuery}
-          // setResults={setResults}
-          // searchMovies={searchMovies}
+          setCinemas={setCinemas}
         />
       </section>
-      {/* <MovieTheater 
-        movies={movies}
-      /> */}
+      <Cinema cinemas={cinemas} />
     </>
   );
 }
